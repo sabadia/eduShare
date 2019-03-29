@@ -1,0 +1,89 @@
+<nav class="navbar navbar-expand-lg  navbar-light sticky-top stiky">
+  <a class="navbar-brand navbar-dark " routerLink="home" ><b>{{AppComp.title}}</b></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+  <ul class="navbar-nav navbar-right ml-auto">
+    <li class="nav-item">
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" #box (keyup.enter)="search(box.value)" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+    <li class="nav-item">
+      <a class=" nav-link btn " routerLink="home" routerLinkActive="active">home<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+      <a class=" nav-link btn "  routerLink="courses" *ngIf="!isLogin" routerLinkActive="active">courses <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+      <a class=" nav-link btn "  routerLink="courses" *ngIf="isLogin" routerLinkActive="active">all courses <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-item nav-link btn "  routerLink="courses" *ngIf="isLogin" routerLinkActive="active">my courses <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+      <a class=" nav-link btn " *ngIf="isLogin" routerLink="user-detail" routerLinkActive="active">my profile<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+        <a class=" nav-link btn "  routerLink="courses/create-course" *ngIf="isLogin" routerLinkActive="active"> create course <span class="sr-only">(current)</span></a>
+      </li>
+    <li class="nav-item">
+      <a data-toggle="dropdown" class="nav-link dropdown-toggle btn" *ngIf="!isLogin" href="#">Login</a>
+      <ul class="dropdown-menu form-wrapper">
+        <li>
+          <form name="loginForm">
+            <p class="hint-text">Sign in with your social media account</p>
+            <div class="form-group social-btn clearfix">
+              <a  class="btn btn-primary pull-left" (click)="loginWithFacebook()"><i class="fa fa-facebook"></i> Facebook</a>
+              <a  class="btn btn-info pull-right" (click)="loginWithTwitter()"><i class="fa fa-twitter"  ></i> Twitter</a>
+            </div>
+            <div class="or-seperator"><b>or</b></div>
+            <div class="form-group">
+              <input type="text" #name="ngModel" [(ngModel)]="username" class="form-control" placeholder="Username or email" name="name" required/>
+
+            </div>
+            <div class="form-group">
+              <input type="password" id="password" #name="ngModel" [(ngModel)]="password"  class="form-control" placeholder="Password" name="password" required/>
+            </div>
+            <input type="submit" class="btn btn-primary btn-block"  href="#" (click)="login()" value="Login" >
+            <div class="form-footer">
+              <a href="#">Forgot Your password?</a>
+            </div>
+          </form>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle btn" *ngIf="!isLogin">Sign up</a>
+      <ul class="dropdown-menu form-wrapper ">
+        <li>
+          <form action="#" method="post">
+            <p class="hint-text">Fill in this form to create your account!</p>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Username" name="registrationUsername" [(ngModel)]="registrationUsername" required="required">
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" [(ngModel)]="email" placeholder="Username" required="required" name="email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="registrationPassword" [(ngModel)]="registrationPassword" placeholder="Password" required="required">
+            </div>
+            <div class="form-group">
+              <input type="password" name="registrationPasswordRepeat" [(ngModel)]="registrationPasswordRepeat"  class="form-control" placeholder="Confirm Password" required="required">
+            </div>
+            <div class="form-group">
+              <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms &amp; Conditions</a></label>
+            </div>
+            <input type="submit" (click)="registration()" class="btn btn-primary btn-block" value="Sign up">
+          </form>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-item nav-link btn " *ngIf="isLogin" (click)="isLogin = ! isLogin" routerLink="logout"  routerLinkActive="active">log out<span class="sr-only">(current)</span></a>
+    </li>
+  </ul>
+  </div>
+</nav>

@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'logout',
-    redirectTo: 'home',
+    redirectTo: 'home'
   },
   {
     path: '',
@@ -25,15 +25,17 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '**',
+    path: 'error',
     component: ErrorComponent
   },
-
-
+  {
+    path: '**',
+    component: ErrorComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

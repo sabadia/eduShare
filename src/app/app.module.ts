@@ -8,23 +8,25 @@ import { HeaderComponent } from './header/header.component';
 import { CoursesComponent } from './courses/courses.component';
 import { FooterComponent } from './footer/footer.component';
 import { ErrorComponent } from './error/error.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     CoursesComponent,
     FooterComponent,
-
-    ErrorComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

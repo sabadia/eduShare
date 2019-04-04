@@ -4,14 +4,19 @@ import { Routes, RouterModule } from '@angular/router';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { MyRegisteredCoursesComponent } from './my-registered-courses/my-registered-courses.component';
 import { CoursesListComponent } from './courses-list/courses-list.component';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 const routes: Routes = [
   {
-    path: 'my-courses/:id',
+    path: 'enrolled-courses',
     component: MyCoursesComponent
   },
   {
-    path: 'my-registered-courses/:id',
+    path: 'my-courses',
     component: MyRegisteredCoursesComponent
+  },
+  {
+    path: 'course-detail/:courseId',
+    component: CourseDetailComponent
   },
   {
     path: 'create-course',
@@ -20,11 +25,11 @@ const routes: Routes = [
   {
     path: '',
     component: CoursesListComponent
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CoursesRoutingModule { }
+export class CoursesRoutingModule {}

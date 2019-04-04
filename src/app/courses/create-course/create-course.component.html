@@ -1,1 +1,81 @@
-<ckeditor [editor]="Editor" ></ckeditor>
+<mat-card>
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="createCourseControl">
+      <div class="middle">
+        <form [formGroup]="createCourseControl">
+          <ng-template matStepLabel>Fill out course name</ng-template>
+          <mat-form-field class="wide-width">
+            <input
+              matInput
+              placeholder="course name"
+              formControlName="courseName"
+              required
+            />
+          </mat-form-field>
+          <br />
+          <mat-form-field class="wide-width gap">
+            <textarea
+              name="details"
+              class="textarea"
+              matInput
+              placeholder="details about course"
+              formControlName="courseDetails"
+              rows="7"
+              cols="200"
+              matAutosize
+            ></textarea>
+          </mat-form-field>
+          <div>
+            <button class="btn-primary" mat-button matStepperNext>
+              Next
+            </button>
+          </div>
+        </form>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="createLectureControl">
+      <div>
+        <form [formGroup]="createLectureControl">
+          <ng-template matStepLabel
+            >getting started with first lecture</ng-template
+          >
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="lecture name"
+              formControlName="lectureName"
+            />
+          </mat-form-field>
+          <ckeditor
+            matInput
+            [editor]="Editor"
+            formControlName="lectureBody"
+            data="<p>You can  edit lecture later</p>"
+          >
+          </ckeditor>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>
+              Back
+            </button>
+            <button class="btn-primary" mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </div>
+    </mat-step>
+    <mat-step>
+      <div id="middle">
+        <ng-template matStepLabel>Done</ng-template>
+        you have successfully done initial steps
+        <div class="middle gap">
+          <button mat-button matStepperPrevious>
+            Back
+          </button>
+          <button class="btn-success" mat-button (click)="createCourse()">
+            save
+          </button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-card>

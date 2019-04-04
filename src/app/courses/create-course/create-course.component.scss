@@ -1,3 +1,30 @@
 :host ::ng-deep .ck-editor__editable {
-  min-height: 400px;
+  min-height: 350px;
+}
+.textarea {
+}
+mat-card {
+  height: 90%;
+  margin: auto;
+}
+.md-col-3 {
+  justify-content: flex-end;
+}
+.middle {
+  margin: 0% 30%;
+  width: 40%;
+}
+
+.wide-width {
+  width: 100%;
+}
+
+.gap {
+  margin-top: 10%;
+}
+
+#middle {
+  margin: 10% 35%;
+  width: 40%;
+  font-size: 24px;
 }

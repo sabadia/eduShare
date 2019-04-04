@@ -8,17 +8,41 @@ import { MyRegisteredCoursesComponent } from './my-registered-courses/my-registe
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  MatFormFieldModule,
+  MatGridListModule,
+  MatExpansionModule,
+  MatListModule,
+  MatInputModule,
+  MatCardModule,
+  MatButtonModule
+} from '@angular/material';
+import { EditCourseComponent } from './edit-course/edit-course.component';
 
 @NgModule({
-  declarations: [CoursesListComponent,
-     MyCoursesComponent,
-      MyRegisteredCoursesComponent,
-       CreateCourseComponent,
-       CourseDetailComponent],
+  declarations: [
+    CoursesListComponent,
+    MyCoursesComponent,
+    MyRegisteredCoursesComponent,
+    CreateCourseComponent,
+    CourseDetailComponent,
+    EditCourseComponent
+  ],
   imports: [
     CommonModule,
     CoursesRoutingModule,
-    CKEditorModule
+    CKEditorModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatExpansionModule,
+    MatListModule
   ]
 })
-export class CoursesModule { }
+export class CoursesModule {}

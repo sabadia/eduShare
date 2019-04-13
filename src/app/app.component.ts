@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from './user/user.service';
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -9,9 +10,9 @@ function getRandomInt(min, max) {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  constructor(private userService: UserService) {}
   title = 'EduShare';
-  isLogin: boolean;
   ngOnInit() {
-    this.isLogin = true;
+    this.userService.autoAuthUser();
   }
 }

@@ -9,15 +9,16 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatFormFieldModule,
+  MatInputModule,
   MatGridListModule,
   MatExpansionModule,
   MatListModule,
-  MatInputModule,
   MatCardModule,
-  MatButtonModule
+  MatButtonModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { EditCourseComponent } from './edit-course/edit-course.component';
 
@@ -42,7 +43,9 @@ import { EditCourseComponent } from './edit-course/edit-course.component';
     MatButtonModule,
     MatGridListModule,
     MatExpansionModule,
-    MatListModule
+    MatListModule,
+    MatProgressSpinnerModule,
+    FormsModule
   ]
 })
 export class CoursesModule {}

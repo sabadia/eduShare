@@ -1,7 +1,6 @@
 import { Course } from './course.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { map } from 'rxjs/Operators';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
@@ -25,13 +24,36 @@ export class CoursesService {
             courseName: course.courseName,
             courseDetails: course.courseDetails,
             lecture: course.lecture,
-            courseId: course._id
+            courseId: course._id,
+            creator: course.creator
           };
         });
         this.courses = courses;
-        console.log(this.courses);
         this.courseUpdated.next([...this.courses]);
       });
+  }
+  getCourseDetail(courseId: string) {
+    return this.http.get<{
+      message: string;
+      course: {
+        _id: string;
+        courseName: string;
+        courseDetails: string;
+        lecture: [
+          {
+            _id: string;
+            lectureName: string;
+            lectureBody: string;
+          }
+        ];
+        creator: string;
+      };
+    }>('http://localhost:3000/api/courses/' + courseId);
+  }
+  updateCourse(course: Course) {
+    this.http
+      .put('http://localhost:3000/api/courses/' + course.courseId, course)
+      .subscribe(response => console.log(response));
   }
   addCourse(course: Course) {
     this.http
@@ -40,15 +62,12 @@ export class CoursesService {
         course
       )
       .subscribe(responseData => {
-        console.log(responseData.message);
         course.courseId = responseData.courseId;
         this.courses.push(course);
         this.courseUpdated.next([...this.courses]);
       });
   }
-  getCourseDetail(courseId: string) {
-    return this.courses.find(course => course.courseId === courseId);
-  }
+
   deleteCourse(courseId: string) {
     this.http
       .delete('http://localhost:3000/api/courses/' + courseId)

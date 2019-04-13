@@ -1,13 +1,26 @@
-<div class="lectureBody">
+<mat-spinner class="load " *ngIf="isLoading"></mat-spinner>
+<div class="lectureBody" *ngIf="!isLoading">
   <mat-grid-list cols="7" rowHeight="100%">
     <mat-grid-tile [colspan]="5">
-      <div [innerHTML]="currentLecture.lectureBody"></div>
+      <div
+        [innerHTML]="currentLecture?.lectureBody"
+        class="begin"
+        *ngIf="!isEdit"
+      ></div>
+      <div class="begin" *ngIf="isEdit">
+        <ckeditor
+          matInput
+          [editor]="Editor"
+          [(ngModel)]="currentLecture.lectureBody"
+          data="{{ currentLecture.lectureBody }}"
+        ></ckeditor>
+      </div>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="2">
       <mat-accordion class="lecture-list">
         <mat-expansion-panel
           class="full"
-          *ngFor="let lecture of course.lecture"
+          *ngFor="let lecture of course?.lecture"
         >
           <mat-expansion-panel-header>{{
             lecture.lectureName
@@ -20,9 +33,63 @@
             >
               view
             </button>
-            <button mat-button color="warn">Delete</button>
+            <button
+              mat-button
+              (click)="deleteLecture(lecture.lectureId)"
+              color="warn"
+              *ngIf="isValid && userId == course?.creator"
+            >
+              Delete
+            </button>
+            <button
+              mat-button
+              *ngIf="!isEdit && isValid && userId == course?.creator"
+              color="primary"
+              (click)="isEdit = true"
+            >
+              edit
+            </button>
+            <button
+              mat-button
+              *ngIf="isEdit && isValid && userId == course?.creator"
+              color="primary"
+              (click)="saveEditedLecture(lecture.lectureId)"
+            >
+              save
+            </button>
           </mat-action-row>
         </mat-expansion-panel>
+        <mat-action-row>
+          <button
+            mat-button
+            color="primary"
+            *ngIf="isValid && userId == course?.creator"
+            (click)="addLecture = !addLecture"
+          >
+            add lecture
+          </button>
+        </mat-action-row>
+
+        <mat-action-row
+          ><div *ngIf="addLecture">
+            <input
+              matInput
+              type="text"
+              #lectureName
+              placeholder="LectureName"
+              required
+            /><br />
+            <br />
+            <button
+              mat-raised-button
+              class="btn btn-block"
+              [disabled]="lectureName?.value.trim() === ''"
+              (click)="createLecture(lectureName.value)"
+            >
+              add lecture
+            </button>
+          </div>
+        </mat-action-row>
       </mat-accordion>
     </mat-grid-tile>
   </mat-grid-list>

@@ -5,14 +5,17 @@ import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { MyRegisteredCoursesComponent } from './my-registered-courses/my-registered-courses.component';
 import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
-const routes: Routes = [
+import { UserGuard } from '../user/user.guard';
+export const routes: Routes = [
   {
     path: 'enrolled-courses',
-    component: MyCoursesComponent
+    component: MyCoursesComponent,
+    canActivate: [UserGuard]
   },
   {
     path: 'my-courses',
-    component: MyRegisteredCoursesComponent
+    component: MyRegisteredCoursesComponent,
+    canActivate: [UserGuard]
   },
   {
     path: 'course-detail/:courseId',
@@ -20,7 +23,8 @@ const routes: Routes = [
   },
   {
     path: 'create-course',
-    component: CreateCourseComponent
+    component: CreateCourseComponent,
+    canActivate: [UserGuard]
   },
   {
     path: '',
@@ -30,6 +34,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [UserGuard]
 })
 export class CoursesRoutingModule {}

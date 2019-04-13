@@ -1,48 +1,63 @@
+import { Router } from '@angular/router';
 import { AppComponent } from './../app.component';
-import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { UserService } from '../user/user.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isLogin: boolean;
-  username: string ;
-  password: string ;
-  email: string;
-  registrationUsername: string;
-  registrationPassword: string;
-  registrationPasswordRepeat: string;
-
-
+  private userListenerSubs: Subscription;
+  createRegistrationControl: FormGroup;
   search(search: string) {
     console.log(search);
   }
-
-  login() {
-    console.log(`welcome ${this.username}`);
+  logOut() {
+    this.userService.logOut();
   }
-
-  loginWithFacebook() {
-    console.log('login with fb');
-  }
-
-  loginWithTwitter() {
-    console.log('login with twitter');
+  login(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.userService.login(form.value.userName, form.value.password);
+    this.router.navigate(['home']);
   }
 
   registration() {
-    console.log(`${this.registrationUsername}  ${this.registrationPassword} ${this.email} ${this.registrationPasswordRepeat}`);
+    if (this.createRegistrationControl.invalid) {
+      return;
+    }
+    this.userService.createUser(
+      this.createRegistrationControl.value.userName,
+      this.createRegistrationControl.value.email,
+      this.createRegistrationControl.value.password
+    );
+    this.router.navigate(['home']);
   }
 
-  constructor(public AppComp: AppComponent) { }
-  changeIsLogin() {
-    this.AppComp.isLogin = !this.AppComp.isLogin;
-    this.isLogin = this.AppComp.isLogin;
+  constructor(
+    public AppComp: AppComponent,
+    private formBuilder: FormBuilder,
+    public userService: UserService,
+    public router: Router
+  ) {}
+
+  ngOnDestroy() {
+    this.userListenerSubs.unsubscribe();
   }
   ngOnInit() {
-    this.isLogin = this.AppComp.isLogin;
+    this.isLogin = this.userService.isUserAuthenticated();
+    this.userListenerSubs = this.userService
+      .getUserStatusListener()
+      .subscribe(isLogin => (this.isLogin = isLogin));
+    this.createRegistrationControl = this.formBuilder.group({
+      userName: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
-
 }
